@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-natours",
+  "version": "1.0.0",
+  "description": "Learn node, express and mongodb",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Khai Truong",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
