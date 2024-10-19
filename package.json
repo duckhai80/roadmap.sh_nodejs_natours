@@ -7,6 +7,7 @@
     "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "start:demo": "nodemon ./dev-data/data/import-dev-data.js",
+    "debug": "ndb server.js",
     "import-data": "node dev-data/data/import-dev-data.js --import-data",
     "delete-data": "node dev-data/data/import-dev-data.js --delete-data"
   },
@@ -29,6 +30,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.0",
+    "ndb": "^1.1.5",
     "prettier": "^3.3.3"
   },
   "engines": {
