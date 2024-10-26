@@ -5,6 +5,13 @@ dotenv.config({ path: './config.env' });
 
 const app = require('./app');
 
+process.on('uncaughtException', (err) => {
+  console.log(err.name, err.message);
+  console.log('Uncaught exception! 💥');
+
+  // process.exit(1);
+});
+
 const PORT = process.env.PORT || 3000;
 const DATABASE = process.env.DATABASE_REMOTE.replace(
   '<PASSWORD>',
@@ -27,3 +34,5 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
+
+console.log(x);
