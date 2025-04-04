@@ -27,6 +27,7 @@ const userSchema = mongoose.Schema({
       },
       message: 'Password must contain at least one special character!',
     },
+    select: false,
   },
   passwordConfirm: {
     type: String,
@@ -48,6 +49,13 @@ userSchema.pre('save', async function (next) {
 
   next();
 });
+
+userSchema.methods.checkCorrectPassword = async function (
+  candidatePassword,
+  userPassword,
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('User', userSchema);
 
