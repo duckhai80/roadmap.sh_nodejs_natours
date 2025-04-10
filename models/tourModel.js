@@ -3,7 +3,7 @@ const validator = require('validator');
 const slugify = require('slugify');
 // const User = require('../models/userModel');
 
-const tourSchema = mongoose.Schema(
+const tourSchema = new mongoose.Schema(
   {
     name: {
       type: String,
