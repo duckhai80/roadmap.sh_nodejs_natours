@@ -1,5 +1,48 @@
+const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+
+exports.getAll = (Model) =>
+  catchAsync(async (req, res, next) => {
+    // To allow to nested GET reviews on tour
+    const filterObject = {};
+
+    if (req.params.tourId) filterObject.tour = req.params.tourId;
+
+    const modelFeatures = await new APIFeatures(
+      Model.find(filterObject),
+      req.query,
+    )
+      .filter()
+      .sort()
+      .limit()
+      .paginate();
+    const doc = await modelFeatures.query;
+
+    res.status(200).json({
+      status: 'success',
+      results: doc.length,
+      data: {
+        data: doc,
+      },
+    });
+  });
+
+exports.getOne = (Model, populateOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = await Model.findById(req.params.id);
+
+    if (populateOptions) query = query.populate(populateOptions);
+
+    const doc = await query;
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: doc,
+      },
+    });
+  });
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
