@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const handlerFactory = require('../controllers/handlerFactory');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -47,12 +48,7 @@ exports.updateUser = (req, res) => {
   });
 };
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+exports.deleteUser = handlerFactory.deleteOne(User);
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   // Create error if user POSTs password or passwordConfirm
