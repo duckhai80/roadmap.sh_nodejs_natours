@@ -14,6 +14,7 @@ const reviewSchema = new mongoose.Schema(
       required: [true, 'REQUIRE'],
       max: [5, 'Rating must be below 5.0!'],
       min: [1, 'Rating must be above 1.0!'],
+      set: (value) => Math.round(value * 10) / 10,
     },
     createdAt: {
       type: Date,
@@ -32,6 +33,8 @@ const reviewSchema = new mongoose.Schema(
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } },
 );
+
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
 reviewSchema.statics.calcAverageRatings = async function (tourId) {
   const stats = await this.aggregate([
