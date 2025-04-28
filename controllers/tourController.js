@@ -13,7 +13,10 @@ exports.get5CheapTours = (req, res, next) => {
 };
 
 exports.getAllTours = handlerFactory.getAll(Tour);
-exports.getTour = handlerFactory.getOne(Tour, { path: 'reviews' });
+exports.getTour = handlerFactory.getOne(Tour, {
+  path: 'reviews',
+  select: 'review rating user -tour',
+});
 exports.createTour = handlerFactory.createOne(Tour);
 exports.updateTour = handlerFactory.updateOne(Tour);
 exports.deleteTour = handlerFactory.deleteOne(Tour);
