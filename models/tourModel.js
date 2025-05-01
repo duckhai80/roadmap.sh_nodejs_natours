@@ -133,7 +133,7 @@ tourSchema.virtual('reviews', {
 
 //  Document middleware: run with .save() and .create()
 tourSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lowercase: true });
+  this.slug = slugify(this.name, { lower: true });
 
   next();
 });
