@@ -22,7 +22,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set HTTP secure headers
-app.use(helmet());
+if (process.env.NODE_ENV === 'production') {
+  app.use(helmet());
+}
 
 // Develop tracking loggers request
 console.log(process.env.NODE_ENV);
@@ -76,7 +78,10 @@ app.use((req, res, next) => {
 
 //  2.ROUTES
 app.get('/', (req, res) => {
-  res.status(200).render('base');
+  res.status(200).render('base', {
+    tour: 'The Forest Hiker',
+    user: 'Khai Truong',
+  });
 });
 
 app.use('/api/v1/tours', tourRouter);

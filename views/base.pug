@@ -1,1 +1,16 @@
-h1 The Park Camper 
+doctype html 
+html 
+  head  
+    title Natours | #{tour}
+    link(rel="stylesheet", href="css/style.css")
+    link(rel="shortcut icon", type="text/png" href="img/favicon.png")
+
+  body 
+    //- h1 The Park Camper 
+    h1= tour
+    h2= user.toUpperCase()
+
+    - const num = 13;
+
+    h2= num * 2 
+    p This is just some text
