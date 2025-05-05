@@ -4,7 +4,9 @@ include _reviewCard
 block append head 
   script(src="https://cdn.maptiler.com/maptiler-sdk-js/v3.2.0/maptiler-sdk.umd.min.js")
   link(rel="stylesheet", href="https://cdn.maptiler.com/maptiler-sdk-js/v3.2.0/maptiler-sdk.css")
-  script(src="/js/maptiler.js", type="module")
+
+//- block append footer 
+//-   script(src="/js/maptiler.js", type="module")
 
 mixin overviewBox(label, text, icon)
   .overview-box__detail
@@ -50,9 +52,9 @@ block content
             .overview-box__detail
               img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.name}`)
 
-              - if (guide.role === 'lead-guide')
+              if (guide.role === 'lead-guide')
                 span.overview-box__label Lead guide
-              - if (guide.role === 'guide')  
+              if (guide.role === 'guide')  
                 span.overview-box__label Tour guide
 
               span.overview-box__text= guide.name

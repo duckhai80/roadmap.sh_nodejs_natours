@@ -9,12 +9,17 @@
     "start:demo": "nodemon ./dev-data/data/import-dev-data.js",
     "debug": "ndb server.js",
     "import-data": "node dev-data/data/import-dev-data.js --import-data",
-    "delete-data": "node dev-data/data/import-dev-data.js --delete-data"
+    "delete-data": "node dev-data/data/import-dev-data.js --delete-data",
+    "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
   "author": "Khai Truong",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "express-mongo-sanitize": "^2.2.0",
@@ -41,6 +46,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.0",
     "ndb": "^1.1.5",
+    "parcel-bundler": "^1.12.5",
     "prettier": "^3.3.3"
   },
   "engines": {
