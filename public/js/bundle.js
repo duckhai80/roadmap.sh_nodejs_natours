@@ -6077,7 +6077,7 @@ var showAlert = exports.showAlert = function showAlert(type, message) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = void 0;
+exports.logout = exports.login = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alert = require("./alert");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -6116,6 +6116,30 @@ var login = exports.login = /*#__PURE__*/function () {
   }));
   return function login(_x, _x2) {
     return _ref.apply(this, arguments);
+  };
+}();
+var logout = exports.logout = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return (0, _axios.default)({
+            method: 'GET',
+            url: 'http://127.0.0.1:3000/api/v1/users/logout'
+          }).then(function (res) {
+            if (res.data.status === 'success') location.reload(true);
+          }).catch(function (err) {
+            (0, _alert.showAlert)('error', 'Error logging out! Please try again!');
+          });
+        case 2:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return function logout() {
+    return _ref2.apply(this, arguments);
   };
 }();
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"maptiler.js":[function(require,module,exports) {
@@ -6176,6 +6200,7 @@ var _maptiler = require("./maptiler");
 
 var mapBox = document.getElementById('map');
 var loginForm = document.querySelector('.form');
+var logoutBtn = document.querySelector('.nav__el.nav__el--logout');
 if (mapBox) {
   var locations = JSON.parse(mapBox.dataset.locations);
   (0, _maptiler.displayMap)(locations);
@@ -6188,6 +6213,7 @@ if (loginForm) {
     (0, _login.login)(email, password);
   });
 }
+if (logoutBtn) logoutBtn.addEventListener('click', _login.logout);
 },{"./login":"login.js","./maptiler":"maptiler.js"}],"../../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -6213,7 +6239,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50068" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55045" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
