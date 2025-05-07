@@ -6199,7 +6199,7 @@ var _maptiler = require("./maptiler");
 // import '@babel/polyfill';
 
 var mapBox = document.getElementById('map');
-var loginForm = document.querySelector('.form');
+var loginForm = document.querySelector('.login-form .form');
 var logoutBtn = document.querySelector('.nav__el.nav__el--logout');
 if (mapBox) {
   var locations = JSON.parse(mapBox.dataset.locations);
@@ -6207,6 +6207,7 @@ if (mapBox) {
 }
 if (loginForm) {
   loginForm.addEventListener('submit', function (e) {
+    console.log('KHAIII');
     e.preventDefault();
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
@@ -6239,7 +6240,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59912" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61025" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -3,7 +3,7 @@ import { login, logout } from './login';
 import { displayMap } from './maptiler';
 
 const mapBox = document.getElementById('map');
-const loginForm = document.querySelector('.form');
+const loginForm = document.querySelector('.login-form .form');
 const logoutBtn = document.querySelector('.nav__el.nav__el--logout');
 
 if (mapBox) {
@@ -14,6 +14,7 @@ if (mapBox) {
 
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
+    console.log('KHAIII');
     e.preventDefault();
 
     const email = document.getElementById('email').value;
