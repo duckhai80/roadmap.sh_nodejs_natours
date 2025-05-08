@@ -1,12 +1,13 @@
 // import '@babel/polyfill';
 import { login, logout } from './login';
 import { displayMap } from './maptiler';
-import { updateUserData } from './updateSettings';
+import { updateSettings } from './updateSettings';
 
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.login-form .form');
 const logoutBtn = document.querySelector('.nav__el.nav__el--logout');
-const updateUserDataForm = document.querySelector('.form.form-user-data');
+const userDataForm = document.querySelector('.form.form-user-data');
+const userPasswordForm = document.querySelector('.form.form-user-password');
 
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -28,13 +29,36 @@ if (loginForm) {
 
 if (logoutBtn) logoutBtn.addEventListener('click', logout);
 
-if (updateUserDataForm) {
-  updateUserDataForm.addEventListener('submit', (e) => {
+if (userDataForm) {
+  userDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const name = updateUserDataForm.name.value;
-    const email = updateUserDataForm.email.value;
+    const name = userDataForm.name.value;
+    const email = userDataForm.email.value;
 
-    updateUserData(name, email);
+    updateSettings({ name, email }, 'data');
+  });
+}
+
+if (userPasswordForm) {
+  userPasswordForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const savePasswordBtn = document.querySelector('.btn--save-password');
+    const passwordCurrent = document.querySelector('#password-current').value;
+    const password = document.querySelector('#password').value;
+    const passwordConfirm = document.querySelector('#password-confirm').value;
+
+    savePasswordBtn.textContent = 'Updating...';
+
+    await updateSettings(
+      { passwordCurrent, password, passwordConfirm },
+      'password',
+    );
+
+    savePasswordBtn.textContent = 'Save password';
+    document.querySelector('#password-current').value = '';
+    document.querySelector('#password').value = '';
+    document.querySelector('#password-confirm').value = '';
   });
 }
