@@ -17,7 +17,6 @@ if (mapBox) {
 
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
-    console.log('KHAIII');
     e.preventDefault();
 
     const email = document.getElementById('email').value;
@@ -33,10 +32,16 @@ if (userDataForm) {
   userDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
     const name = userDataForm.name.value;
     const email = userDataForm.email.value;
+    const photo = userDataForm.photo.files[0];
 
-    updateSettings({ name, email }, 'data');
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('photo', photo);
+
+    updateSettings(formData, 'data');
   });
 }
 

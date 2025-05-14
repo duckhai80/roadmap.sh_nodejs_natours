@@ -6255,7 +6255,6 @@ if (mapBox) {
 }
 if (loginForm) {
   loginForm.addEventListener('submit', function (e) {
-    console.log('KHAIII');
     e.preventDefault();
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
@@ -6266,12 +6265,14 @@ if (logoutBtn) logoutBtn.addEventListener('click', _login.logout);
 if (userDataForm) {
   userDataForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    var formData = new FormData();
     var name = userDataForm.name.value;
     var email = userDataForm.email.value;
-    (0, _updateSettings.updateSettings)({
-      name: name,
-      email: email
-    }, 'data');
+    var photo = userDataForm.photo.files[0];
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('photo', photo);
+    (0, _updateSettings.updateSettings)(formData, 'data');
   });
 }
 if (userPasswordForm) {
@@ -6334,7 +6335,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65425" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57916" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
