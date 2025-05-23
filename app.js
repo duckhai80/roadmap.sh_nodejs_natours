@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const viewRouter = require('./routes/viewRouter');
@@ -30,7 +31,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Develop tracking loggers request
-console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -68,6 +68,8 @@ app.use(
     ],
   }),
 );
+
+app.use(compression());
 
 // Test middleware and set request time
 app.use((req, res, next) => {
