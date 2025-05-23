@@ -51,3 +51,9 @@ exports.createBookingCheckout = catchAsync(async (req, res, next) => {
   // Trick to remove query string in original url
   res.redirect(req.originalUrl.split('?')[0]);
 });
+
+exports.getAllBookings = handlerFactory.getAll(Booking);
+exports.getBooking = handlerFactory.getOne(Booking);
+exports.createBooking = handlerFactory.createOne(Booking);
+exports.updateBooking = handlerFactory.updateOne(Booking);
+exports.deleteBooking = handlerFactory.deleteOne(Booking);
