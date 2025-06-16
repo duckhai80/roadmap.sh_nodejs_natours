@@ -3,6 +3,7 @@ const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const AppError = require('../utils/appError');
+const { setCache, getCache } = require('../cache/cacheService');
 
 exports.alertMessage = (req, res, next) => {
   const { alert } = req.query;
@@ -19,15 +20,41 @@ exports.alertMessage = (req, res, next) => {
   next();
 };
 
+exports.cacheView = (template) => {
+  return async (req, res, next) => {
+    try {
+      const cacheKey = `${template}:${req.originalUrl}`;
+      const cachedData = await getCache(cacheKey);
+
+      req.template = template;
+
+      if (cachedData) {
+        res.status(200).render(template, cachedData);
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.error('Cache error:', error);
+
+      next();
+    }
+  };
+};
+
 exports.getOverview = catchAsync(async (req, res) => {
   // Get tour data from collection
   const tours = await Tour.find();
+  const cacheKey = `${req.template}:${req.originalUrl}`;
+  const dataRender = {
+    title: 'All tours',
+    tours: tours,
+  };
+
+  // Set cache
+  await setCache(cacheKey, JSON.stringify(dataRender));
 
   // Render that template using tour data
-  res.status(200).render('overview', {
-    title: 'All tours',
-    tours,
-  });
+  res.status(200).render(req.template, dataRender);
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
@@ -41,11 +68,17 @@ exports.getTour = catchAsync(async (req, res, next) => {
     return next(new AppError('There is no tour with that name!', 404));
   }
 
-  // Render template using tour data
-  res.status(200).render('tour', {
+  const cacheKey = `${req.template}:${req.originalUrl}`;
+  const dataRender = {
     title: `${tour.name} tour`,
     tour,
-  });
+  };
+
+  // Set cache
+  await setCache(cacheKey, JSON.stringify(dataRender));
+
+  // Render template using tour data
+  res.status(200).render(req.template, dataRender);
 });
 
 exports.getLoginForm = (req, res) => {
@@ -87,8 +120,14 @@ exports.getMyTours = catchAsync(async (req, res) => {
   const tourIds = bookings.map((booking) => booking.tour);
   const tours = await Tour.find({ _id: { $in: tourIds } });
 
-  res.status(200).render('overview', {
+  // Cache page and render
+  const cacheKey = `${req.template}:${req.originalUrl}`;
+  const dataRender = {
     title: 'My tours',
     tours: tours,
-  });
+  };
+
+  await setCache(cacheKey, JSON.stringify(dataRender));
+
+  res.status(200).render(req.template, dataRender);
 });
