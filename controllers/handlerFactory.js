@@ -1,6 +1,7 @@
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const { setCache } = require('../cache/cacheService');
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -17,16 +18,26 @@ exports.getAll = (Model) =>
       .sort()
       .limit()
       .paginate();
+
     // const doc = await modelFeatures.query.explain();
     const doc = await modelFeatures.query;
-
-    res.status(200).json({
+    const dataResponse = {
       status: 'success',
       results: doc.length,
       data: {
         data: doc,
       },
-    });
+    };
+
+    // Set cache
+    if (req.prefixKey) {
+      await setCache(
+        `${req.prefixKey}:${req.originalUrl}`,
+        JSON.stringify(dataResponse),
+      );
+    }
+
+    res.status(200).json(dataResponse);
   });
 
 exports.getOne = (Model, populateOptions) =>
@@ -36,13 +47,22 @@ exports.getOne = (Model, populateOptions) =>
     if (query && populateOptions) query = query.populate(populateOptions);
 
     const doc = await query;
-
-    res.status(200).json({
+    const dataResponse = {
       status: 'success',
       data: {
         data: doc,
       },
-    });
+    };
+
+    // Set cache
+    if (req.prefixKey) {
+      await setCache(
+        `${req.prefixKey}:${req.originalUrl}`,
+        JSON.stringify(dataResponse),
+      );
+    }
+
+    res.status(200).json(dataResponse);
   });
 
 exports.createOne = (Model) =>
