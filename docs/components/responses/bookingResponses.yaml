@@ -1,0 +1,88 @@
+CheckoutSession:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          session:
+            type: object
+
+GetBookings:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          results:
+            type: integer
+          data:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingExtendTourUser'
+
+CreateBooking:
+  description: Created
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Booking'
+
+GetBooking:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/BookingExtendTourUser'
+
+UpdateBooking:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/BookingExtendTourUser'
+
+DeleteBooking:
+  description: No Content
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            example: null

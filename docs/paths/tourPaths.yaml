@@ -1,0 +1,280 @@
+/tours/get-5-cheap:
+  get:
+    tags:
+      - Tour
+    summary: Get 5 cheap tours
+    description: Get 5 cheap tours
+    operationId: get5CheapTours
+    parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/difficulty'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/Get5CheapTours'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/tours/tour-stats:
+  get:
+    tags:
+      - Tour
+    summary: Get tour statistics
+    description: Get tour statistics
+    operationId: getTourStats
+    parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/difficulty'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetTourStats'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/tours/monthly-plan/:year:
+  get:
+    tags:
+      - Tour
+    summary: Get monthly plan
+    description: Get monthly plan
+    operationId: getMonthlyPlan
+    parameters:
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/difficulty'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetMonthlyPlan'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/tours-within/{distance}/center/{latlong}/unit/{unit}:
+  get:
+    tags:
+      - Tour
+    summary: Get tours within a certain distance from a point
+    description: Get tours within a certain distance from a point
+    operationId: getToursWithin
+    parameters:
+      - name: distance
+        in: path
+        required: true
+        schema:
+          type: number
+          format: float
+      - name: latlong
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: unit
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+            - mi
+            - km
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/difficulty'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetToursWithin'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/tours/distances/{latlong}/unit/{unit}:
+  get:
+    tags:
+      - Tour
+    summary: Get distances to tours from a point
+    description: Get distances to tours from a point
+    operationId: getDistances
+    parameters:
+      - name: latlong
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: unit
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+            - mi
+            - km
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/difficulty'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetDistances'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/tours:
+  get:
+    tags:
+      - Tour
+    summary: Get all tours
+    description: Get all tours
+    operationId: getAllTours
+    parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/difficulty'
+      - $ref: '#/components/parameters/duration'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetAllTours'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+  post:
+    tags:
+      - Tour
+    summary: Create tour
+    description: Create tour
+    operationId: createTour
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TourCreateRequestBody'
+    responses:
+      '201':
+        $ref: '#/components/responses/CreateTour'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/tours/{id}:
+  get:
+    tags:
+      - Tour
+    summary: Get tour
+    description: Get tour
+    operationId: getTour
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/GetTour'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+  patch:
+    tags:
+      - Tour
+    summary: Update tour
+    description: Update tour
+    operationId: updateTour
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Tour'
+    responses:
+      '200':
+        $ref: '#/components/responses/UpdateReview'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  delete:
+    tags:
+      - Tour
+    summary: Delete tour
+    description: Delete tour
+    operationId: deleteTour
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '204':
+        $ref: '#/components/responses/DeleteTour'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+    security:
+      - bearerAuth: []

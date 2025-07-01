@@ -1,0 +1,126 @@
+/reviews:
+  get:
+    tags:
+      - Review
+    summary: Get all reviews
+    operationId: getReviews
+    parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/review'
+      - $ref: '#/components/parameters/rating'
+      - $ref: '#/components/parameters/tour'
+      - $ref: '#/components/parameters/user'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetAllReviews'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  post:
+    tags:
+      - Review
+    summary: Create review
+    operationId: createReview
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+    responses:
+      '201':
+        $ref: '#/components/responses/CreateReview'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/reviews/{id}:
+  get:
+    tags:
+      - Review
+    summary: Get review
+    operationId: getReview
+    parameters:
+      - name: id
+        in: path
+        description: ID of review
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/GetReview'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  patch:
+    tags:
+      - Review
+    summary: Update review
+    operationId: updateReview
+    parameters:
+      - name: id
+        in: path
+        description: ID of review
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+    responses:
+      '200':
+        $ref: '#/components/responses/UpdateReview'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  delete:
+    tags:
+      - Review
+    summary: Delete review
+    operationId: deleteReview
+    parameters:
+      - name: id
+        in: path
+        description: ID of review
+        required: true
+        schema:
+          type: string
+    responses:
+      '204':
+        $ref: '#/components/responses/DeleteReview'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []

@@ -1,0 +1,27 @@
+User:
+  type: object
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+    email:
+      type: string
+    role:
+      type: string
+    photo:
+      type: string
+    passwordChangedAt:
+      type: string
+
+UserSignUp:
+  type: object
+  properties:
+    name:
+      type: string
+    email:
+      type: string
+    password:
+      type: string
+    passwordConfirm:
+      type: string

@@ -1,0 +1,87 @@
+page:
+  name: page
+  in: query
+  schema:
+    type: integer
+    default: 1
+
+limit:
+  name: limit
+  in: query
+  schema:
+    type: integer
+    default: 100
+
+sort:
+  name: sort
+  in: query
+  schema:
+    type: string
+    default: 'createdAt'
+    description: 'Sort order for the results, e.g., "price,-ratingsAverage" (prefix with "-" for descending order)'
+
+fields:
+  name: fields
+  in: query
+  schema:
+    type: string
+    description: 'Comma-separated list of fields to include in the response, e.g., "name,duration,price"'
+
+difficulty:
+  name: difficulty
+  in: query
+  schema:
+    type: string
+    enum:
+      - easy
+      - medium
+      - difficult
+
+duration:
+  name: duration
+  in: query
+  schema:
+    type: number
+
+price:
+  name: price
+  in: query
+  schema:
+    type: number
+
+review:
+  name: review
+  in: query
+  schema:
+    type: string
+
+rating:
+  name: rating
+  in: query
+  schema:
+    type: integer
+
+createdAt:
+  name: createdAt
+  in: query
+  schema:
+    type: string
+    format: date-time
+
+tour:
+  name: tour
+  in: query
+  schema:
+    type: string
+
+user:
+  name: user
+  in: query
+  schema:
+    type: string
+
+paid:
+  name: paid
+  in: query
+  schema:
+    type: boolean

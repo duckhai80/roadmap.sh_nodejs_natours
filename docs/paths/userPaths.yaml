@@ -1,0 +1,333 @@
+/users/signup:
+  post:
+    tags:
+      - User
+    summary: Sign up
+    description: Sign up
+    operationId: signup
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserSignUp'
+    responses:
+      '201':
+        $ref: '#/components/responses/SignUp'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+
+/users/login:
+  post:
+    tags:
+      - User
+    summary: Login
+    description: Login
+    operationId: login
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/Login'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+
+/users/logout:
+  get:
+    tags:
+      - User
+    summary: Logout
+    description: Logout
+    operationId: logout
+    responses:
+      '200':
+        $ref: '#/components/responses/Logout'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/users/forgotPassword:
+  post:
+    tags:
+      - User
+    summary: Forgot password
+    description: Forgot password
+    operationId: forgotPassword
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/ForgotPassword'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/users/resetPassword/{token}:
+  patch:
+    tags:
+      - User
+    summary: Reset password
+    description: Reset password
+    operationId: resetPassword
+    parameters:
+      - name: token
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              password:
+                type: string
+              passwordConfirm:
+                type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/ResetPassword'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+
+/users/updatePassword:
+  patch:
+    tags:
+      - User
+    summary: Update password
+    description: Update password
+    operationId: updatePassword
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              passwordCurrent:
+                type: string
+              password:
+                type: string
+              passwordConfirm:
+                type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/UpdatePassword'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/users/me:
+  get:
+    tags:
+      - User
+    summary: Get current user
+    description: Get current user
+    operationId: getMe
+    responses:
+      '200':
+        $ref: '#/components/responses/GetMe'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/users/updateMe:
+  patch:
+    tags:
+      - User
+    summary: Update current user
+    description: Update current user
+    operationId: updateMe
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              photo:
+                type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/UpdateMe'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/users/deleteMe:
+  delete:
+    tags:
+      - User
+    summary: Delete current user
+    description: Delete current user
+    operationId: deleteMe
+    responses:
+      '204':
+        $ref: '#/components/responses/DeleteMe'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/users:
+  get:
+    tags:
+      - User
+    summary: Get all users
+    description: Get all users
+    operationId: getAllUsers
+    responses:
+      '200':
+        $ref: '#/components/responses/GetAllUsers'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  post:
+    tags:
+      - User
+    summary: Create user
+    description: Create user
+    operationId: createUser
+    responses:
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/users/{id}:
+  get:
+    tags:
+      - User
+    summary: Get user by ID
+    description: Get user by ID
+    operationId: getUser
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/GetUser'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  patch:
+    tags:
+      - User
+    summary: Update user by ID
+    description: Update user by ID
+    operationId: updateUser
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              role:
+                type: string
+              photo:
+                type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/UpdateUser'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  delete:
+    tags:
+      - User
+    summary: Delete user by ID
+    description: Delete user by ID
+    operationId: deleteUser
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '204':
+        $ref: '#/components/responses/DeleteUser'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []

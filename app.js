@@ -9,6 +9,7 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const bookingController = require('./controllers/bookingController');
@@ -17,6 +18,7 @@ const tourRouter = require('./routes/tourRouter');
 const userRouter = require('./routes/userRouter');
 const reviewRouter = require('./routes/reviewRouter');
 const bookingRouter = require('./routes/bookingRouter');
+const { createSwaggerDocument } = require('./docs/swagger');
 
 const app = express();
 
@@ -28,12 +30,6 @@ app.set('views', path.join(__dirname, 'views'));
 //  1. MIDDLEWARE
 // Implement CORS
 app.use(cors());
-// app.use(
-//   cors({
-//     origin: 'https://www.natours.com',
-//   }),
-// );
-
 app.options('*', cors());
 // app.options('/api/v1/tours/:id', cors());
 
@@ -101,14 +97,23 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get('/api/v1/tours', getAllTours);
-// app.post('/api/v1/tours', createTour);
-// app.get('/api/v1/tours/:id', getTour);
-// app.patch('/api/v1/tours/:id', updateTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
-
 //  2.ROUTES
 app.use('/', viewRouter);
+app.use('/api-docs', swaggerUi.serve);
+app.use('/api-docs', (req, res, next) => {
+  const swaggerDocument = createSwaggerDocument(req);
+  const html = swaggerUi.generateHTML(swaggerDocument, {
+    customCssUrl:
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+    customJs: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
+    ],
+    customSiteTitle: 'Natours API Documentation',
+  });
+
+  res.send(html);
+});
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);

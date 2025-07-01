@@ -1,0 +1,62 @@
+Booking:
+  type: object
+  properties:
+    _id:
+      type: string
+    tour:
+      type: string
+    user:
+      type: string
+    price:
+      type: number
+      format: float
+    createdAt:
+      type: string
+      format: date-time
+    paid:
+      type: boolean
+
+BookingExtendTourUser:
+  type: object
+  properties:
+    _id:
+      type: string
+    tour:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        guides:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        durationWeeks:
+          type: integer
+          nullable: true
+        id:
+          type: string
+    user:
+      $ref: '#/components/schemas/User'
+    price:
+      type: number
+      format: float
+    createdAt:
+      type: string
+      format: date-time
+    paid:
+      type: boolean
+
+BookingCreateRequestBody:
+  type: object
+  properties:
+    tour:
+      type: string
+    user:
+      type: string
+    price:
+      type: number
+      format: float
+    paid:
+      type: boolean

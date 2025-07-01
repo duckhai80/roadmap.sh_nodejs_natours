@@ -1,0 +1,161 @@
+/bookings/checkout-session/{tourId}:
+  get:
+    tags:
+      - Booking
+    summary: Create a checkout session for a tour
+    description: Create a checkout session for a tour
+    operationId: createCheckoutSession
+    parameters:
+      - name: tourId
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/CheckoutSession'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/bookings:
+  get:
+    tags:
+      - Booking
+    summary: Get all bookings
+    description: Get all bookings
+    operationId: getBookings
+    parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/price'
+      - $ref: '#/components/parameters/paid'
+      - $ref: '#/components/parameters/createdAt'
+    responses:
+      '200':
+        $ref: '#/components/responses/GetBookings'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  post:
+    tags:
+      - Booking
+    summary: Create a booking
+    description: Create a booking
+    operationId: createBooking
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookingCreateRequestBody'
+    responses:
+      '201':
+        $ref: '#/components/responses/CreateBooking'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+
+/bookings/{id}:
+  get:
+    tags:
+      - Booking
+    summary: Get a booking
+    description: Get a booking
+    operationId: getBooking
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        $ref: '#/components/responses/GetBooking'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  patch:
+    tags:
+      - Booking
+    summary: Update a booking
+    description: Update a booking
+    operationId: updateBooking
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookingCreateRequestBody'
+    responses:
+      '200':
+        $ref: '#/components/responses/UpdateBooking'
+      '400':
+        $ref: '#/components/responses/BadRequest'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []
+  delete:
+    tags:
+      - Booking
+    summary: Delete a booking
+    description: Delete a booking
+    operationId: deleteBooking
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '204':
+        $ref: '#/components/responses/DeleteBooking'
+      '401':
+        $ref: '#/components/responses/Unauthorized'
+      '403':
+        $ref: '#/components/responses/Forbidden'
+      '404':
+        $ref: '#/components/responses/NotFound'
+      '500':
+        $ref: '#/components/responses/InternalServerError'
+    security:
+      - bearerAuth: []

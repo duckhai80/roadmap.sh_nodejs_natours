@@ -1,0 +1,179 @@
+SignUp:
+  description: Created
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          token:
+            type: string
+          data:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+
+Login:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          token:
+            type: string
+          data:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+
+Logout:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+
+ForgotPassword:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          message:
+            type: string
+
+ResetPassword:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          message:
+            type: string
+
+UpdatePassword:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          message:
+            type: string
+
+GetMe:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+
+UpdateMe:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+
+DeleteMe:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+
+GetAllUsers:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+GetUser:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/User'
+
+UpdateUser:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+
+DeleteUser:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: string
+            example: null

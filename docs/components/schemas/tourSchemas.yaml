@@ -1,0 +1,165 @@
+Tour:
+  type: object
+  properties:
+    name:
+      type: string
+    slug:
+      type: string
+    duration:
+      type: number
+    maxGroupSize:
+      type: number
+    difficulty:
+      type: string
+      enum:
+        - easy
+        - medium
+        - difficult
+    ratingsAverage:
+      type: number
+    ratingsQuantity:
+      type: number
+    price:
+      type: number
+    priceDiscount:
+      type: number
+    summary:
+      type: string
+    description:
+      type: string
+    imageCover:
+      type: string
+    images:
+      type: array
+      items:
+        type: string
+    createdAt:
+      type: string
+      format: date-time
+    startDates:
+      type: array
+      items:
+        type: string
+        format: date-time
+    secretTour:
+      type: boolean
+    startLocation:
+      type: object
+      properties:
+        type:
+          type: string
+          default: Point
+          enum: [Point]
+        coordinates:
+          type: array
+          items:
+            type: number
+        address:
+          type: string
+        description:
+          type: string
+    locations:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+            default: Point
+            enum: [Point]
+          coordinates:
+            type: array
+            items:
+              type: number
+          address:
+            type: string
+          description:
+            type: string
+          day:
+            type: number
+    guides:
+      type: array
+      items:
+        type: string
+
+TourStatistic:
+  type: object
+  properties:
+    _id:
+      type: string
+    numTours:
+      type: number
+    numRatings:
+      type: number
+    avgRating:
+      type: number
+    avgPrice:
+      type: number
+    minPrice:
+      type: number
+    maxPrice:
+      type: number
+
+TourMonthlyPlan:
+  type: object
+  properties:
+    numToursStarts:
+      type: number
+    tours:
+      type: array
+      items:
+        type: string
+    month:
+      type: integer
+
+TourDistance:
+  type: object
+  properties:
+    _id:
+      type: string
+    name:
+      type: string
+    distance:
+      type: number
+
+TourCreateRequestBody:
+  type: object
+  properties:
+    name:
+      type: string
+    duration:
+      type: number
+    maxGroupSize:
+      type: number
+    difficulty:
+      type: string
+      enum: [easy, medium, difficult]
+    price:
+      type: number
+    summary:
+      type: string
+    imageCover:
+      type: string
+    ratingsAverage:
+      type: number
+    startDates:
+      type: array
+      items:
+        type: string
+        format: date-time
+    startLocation:
+      type: object
+      properties:
+        type:
+          type: string
+          default: Point
+          enum: [Point]
+        coordinates:
+          type: array
+          items:
+            type: number
+          example: [-80.185942, 25.774772]
+        address:
+          type: string
+        description:
+          type: string

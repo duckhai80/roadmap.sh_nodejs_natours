@@ -1,0 +1,163 @@
+Get5CheapTours:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+
+GetTourStats:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              stats:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TourStatistic'
+
+GetMonthlyPlan:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              plan:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TourMonthlyPlan'
+
+GetToursWithin:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          results:
+            type: integer
+          data:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+
+GetDistances:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TourDistance'
+
+GetAllTours:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          results:
+            type: integer
+          data:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+
+GetTour:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Tour'
+
+CreateTour:
+  description: Created
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Tour'
+
+UpdateReview:
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Tour'
+
+DeleteTour:
+  description: No Content
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+          data:
+            type: object
+            example: null
