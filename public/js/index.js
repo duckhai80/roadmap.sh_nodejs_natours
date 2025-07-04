@@ -1,12 +1,13 @@
 // import '@babel/polyfill';
-import { login, logout } from './login';
+import { login, logout, signup } from './login';
 import { displayMap } from './maptiler';
 import { bookTour } from './stripe';
 import { updateSettings } from './updateSettings';
 import { showAlert } from './alert';
 
 const mapBox = document.getElementById('map');
-const loginForm = document.querySelector('.login-form .form');
+const loginForm = document.querySelector('.login-form:not(.signup-form) .form');
+const signupForm = document.querySelector('.signup-form .form');
 const logoutBtn = document.querySelector('.nav__el.nav__el--logout');
 const userDataForm = document.querySelector('.form.form-user-data');
 const userPasswordForm = document.querySelector('.form.form-user-password');
@@ -21,6 +22,19 @@ if (mapBox) {
   displayMap(locations);
 }
 
+if (signupForm) {
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    signup(e)(name, email, password, passwordConfirm);
+  });
+}
+
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -28,11 +42,11 @@ if (loginForm) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    login(email, password);
+    login(e)(email, password);
   });
 }
 
-if (logoutBtn) logoutBtn.addEventListener('click', logout);
+if (logoutBtn) logoutBtn.addEventListener('click', (e) => logout(e));
 
 if (userDataForm) {
   userDataForm.addEventListener('submit', (e) => {
@@ -47,7 +61,7 @@ if (userDataForm) {
     formData.append('email', email);
     formData.append('photo', photo);
 
-    updateSettings(formData, 'data');
+    updateSettings(e)(formData, 'data');
   });
 }
 
@@ -62,7 +76,7 @@ if (userPasswordForm) {
 
     savePasswordBtn.textContent = 'Updating...';
 
-    await updateSettings(
+    await updateSettings(e)(
       { passwordCurrent, password, passwordConfirm },
       'password',
     );

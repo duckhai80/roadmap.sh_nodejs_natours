@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { showAlert } from './alert';
 
-export const updateSettings = async (data, type) => {
+export const updateSettings = (event) => async (data, type) => {
   const url =
     type === 'password'
       ? '/api/v1/users/updatePassword'
       : '/api/v1/users/updateMe';
+
+  event.target.querySelector('button').disabled = true;
 
   await axios({
     method: 'PATCH',
@@ -19,5 +21,8 @@ export const updateSettings = async (data, type) => {
     })
     .catch((err) => {
       showAlert('error', err.response.data.message);
+    })
+    .finally(() => {
+      event.target.querySelector('button').disabled = false;
     });
 };
